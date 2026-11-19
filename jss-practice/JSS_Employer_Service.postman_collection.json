@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "a9876543-b210-4321-abcd-1234567890ab",
+		"name": "JSS - Employer Service API Collection",
+		"description": "Postman API Collection for Job Search System (JSS) Employer Microservice covering Positive, Negative, Validation, and Exception scenarios.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Positive: Register New Employer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"organizationName\": \"Microsoft India R&D\",\n  \"contactPerson\": \"Satya Nadella\",\n  \"address\": \"Gachibowli, Financial District\",\n  \"city\": \"Hyderabad\",\n  \"state\": \"Telangana\",\n  \"country\": \"India\",\n  \"contactNumber\": \"9876543210\",\n  \"email\": \"careers@microsoft.com\",\n  \"website\": \"https://careers.microsoft.com\",\n  \"industryType\": \"Information Technology\",\n  \"companySize\": \"10000+ Employees\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/employers",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "employers"]
+				}
+			}
+		},
+		{
+			"name": "2. Negative: Register Employer - Validation Failure (Empty Org Name & Bad Email)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"organizationName\": \"\",\n  \"contactPerson\": \"\",\n  \"address\": \"Some Address\",\n  \"city\": \"\",\n  \"state\": \"State\",\n  \"country\": \"India\",\n  \"contactNumber\": \"123\",\n  \"email\": \"invalid-email-format\",\n  \"website\": \"https://example.com\",\n  \"industryType\": \"\",\n  \"companySize\": \"500\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/employers",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "employers"]
+				}
+			}
+		},
+		{
+			"name": "3. Negative: Register Employer - Duplicate Email (Conflict 409)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"organizationName\": \"Duplicate Company Inc\",\n  \"contactPerson\": \"John Doe\",\n  \"address\": \"Sector 62\",\n  \"city\": \"Noida\",\n  \"state\": \"Uttar Pradesh\",\n  \"country\": \"India\",\n  \"contactNumber\": \"9123456780\",\n  \"email\": \"careers@google.com\",\n  \"website\": \"https://google.com\",\n  \"industryType\": \"Information Technology\",\n  \"companySize\": \"5000\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/employers",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "employers"]
+				}
+			}
+		},
+		{
+			"name": "4. Positive: Get Employer By ID (ID = 1)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/employers/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "employers", "1"]
+				}
+			}
+		},
+		{
+			"name": "5. Negative: Get Employer By ID - Not Found (ID = 999)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/employers/999",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "employers", "999"]
+				}
+			}
+		},
+		{
+			"name": "6. Positive: Get All Employers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/employers",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "employers"]
+				}
+			}
+		},
+		{
+			"name": "7. Positive: Search Employers by Industry and City",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/employers?industryType=Information%20Technology&city=Bengaluru",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "employers"],
+					"query": [
+						{
+							"key": "industryType",
+							"value": "Information Technology"
+						},
+						{
+							"key": "city",
+							"value": "Bengaluru"
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "8. Positive: Update Employer Profile (ID = 1)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"organizationName\": \"Capgemini Technology Services Global\",\n  \"contactPerson\": \"Rajesh Kumar\",\n  \"address\": \"Whitefield SEZ, ITPL Main Road\",\n  \"city\": \"Bengaluru\",\n  \"state\": \"Karnataka\",\n  \"country\": \"India\",\n  \"contactNumber\": \"9876543210\",\n  \"email\": \"recruitment@capgemini.com\",\n  \"website\": \"https://www.capgemini.com\",\n  \"industryType\": \"Information Technology\",\n  \"companySize\": \"10000+ Employees\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/employers/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "employers", "1"]
+				}
+			}
+		},
+		{
+			"name": "9. Positive: Delete Employer (ID = 3)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/employers/3",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "employers", "3"]
+				}
+			}
+		}
+	]
+}

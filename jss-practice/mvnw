@@ -1,0 +1,27 @@
+#!/bin/sh
+# ----------------------------------------------------------------------------
+# Maven Wrapper for Linux/macOS/Git Bash
+# ----------------------------------------------------------------------------
+set -e
+DIR="$(cd "$(dirname "$0")" && pwd)"
+MAVEN_VERSION="3.9.9"
+MAVEN_HOME="$DIR/.mvn/wrapper/apache-maven-$MAVEN_VERSION"
+MAVEN_EXE="$MAVEN_HOME/bin/mvn"
+
+if [ -f "$MAVEN_EXE" ]; then
+    exec "$MAVEN_EXE" "$@"
+fi
+
+if command -v mvn >/dev/null 2>&1; then
+    exec mvn "$@"
+fi
+
+echo "[INFO] Apache Maven not found. Downloading Apache Maven $MAVEN_VERSION..."
+mkdir -p "$DIR/.mvn/wrapper"
+curl -sSL "https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.zip" -o "$DIR/.mvn/wrapper/maven.zip"
+unzip -q -o "$DIR/.mvn/wrapper/maven.zip" -d "$DIR/.mvn/wrapper"
+rm -f "$DIR/.mvn/wrapper/maven.zip"
+chmod +x "$MAVEN_EXE"
+echo "[INFO] Maven $MAVEN_VERSION ready!"
+
+exec "$MAVEN_EXE" "$@"
