@@ -130,6 +130,7 @@ Before writing any exception classes or handler advice:
 
 | Date | Directive / Decision | Requested By | Action Taken |
 | :--- | :--- | :--- | :--- |
+| **2026-11-19** | **Step 2B Completed (`jobseeker-service`)**: Implemented Job Seeker Microservice on port 8083 with MySQL (`jobseeker_db`), Eureka registration, unified search/filter endpoint, and guide. Verified via 2-Gate Protocol. | User | Candidate microservice ready. |
 | **2026-11-18** | **Strict Git Commit & Push Rule**: Never automatically commit or push code. Leave all files uncommitted in the working tree. Only provide modular commit breakdowns when the user explicitly prompts for it. Added to Section 1.F. | User | Reset local commit; logged as strict protocol across all future steps. |
 | **2026-11-18** | **Local MySQL Database Requirement**: Use local MySQL database exclusively across all microservices (no H2, no PostgreSQL). Must be inspectable via MySQL Workbench. Added to Section 1.C. | User | MySQL driver & configuration mandated across all services. |
 | **2026-11-18** | **Step 1 Completed (`eureka-server`)**: Implemented Eureka Discovery Server on port 8761 with `@EnableEurekaServer` and `application.yml`. Registered child module in parent `pom.xml`. Verified via 2-Gate Protocol. | User | Discovery server module ready. |

@@ -29,6 +29,7 @@
     <modules>
         <module>eureka-server</module>
         <module>employer-service</module>
+        <module>jobseeker-service</module>
     </modules>
 
     <dependencyManagement>
