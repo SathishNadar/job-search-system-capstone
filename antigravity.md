@@ -19,7 +19,14 @@
   * `description = "..."`: Clear explanation of the field for frontend engineers.
   * `example = "..."`: Realistic, pre-validated dummy data for instant 1-click execution in Swagger UI.
 
-### C. Layered Microservice Blueprint
+### C. Database Architecture: Local MySQL ONLY (No H2, No PostgreSQL)
+* **User Directive:** For the actual project (`jss-capstone`), **strictly use local MySQL**.
+* **NO H2 Database:** H2 was only for initial practice/prototyping; the actual project must persist to local MySQL.
+* **NO PostgreSQL:** Replace the document's PostgreSQL mention with MySQL (`com.mysql:mysql-connector-j`).
+* **Workbench Accessibility:** Databases must be created and inspectable directly in **MySQL Workbench**.
+* **Auto-creation:** Connection strings should include `createDatabaseIfNotExist=true` so MySQL creates the database automatically on startup if missing.
+
+### D. Layered Microservice Blueprint
 For every microservice created in the project, strictly follow this standard structure:
 1. **`entity/`**: JPA Entity mapped to database table.
 2. **`dto/`**: `RequestDTO` (with Bean Validation) and `ResponseDTO` (using Lombok).
@@ -38,10 +45,16 @@ For every microservice created in the project, strictly follow this standard str
 6. **`controller/`**: REST controller with `@Tag`, `@Operation`, `@Valid`, returning standard HTTP status codes (`201`, `200`, `204`).
 7. **`config/`**: Swagger OpenAPI config bean and seed data initializers.
 
-### D. Testing Policy for the Actual Project (Backend First, Tests at the End)
+### E. Testing Policy for the Actual Project (Backend First, Tests at the End)
 * **User Directive:** Do **NOT** create `src/test` folders, test classes, or Mockito tests when creating microservices during development.
 * **Focus:** 100% of effort goes into building the working production features (`src/main`): Entity $\rightarrow$ DTO $\rightarrow$ Repository $\rightarrow$ Service $\rightarrow$ Controller $\rightarrow$ Swagger UI.
 * **Testing Execution:** Unit testing (JUnit 5 + Mockito) will be implemented for **only ONE clean, representative microservice** at the very end after all backend microservices are fully developed, connected, and functioning.
+
+### F. Git Commit & Push Policy (Strictly User-Triggered)
+* **User Directive:** **NEVER commit or push code automatically.**
+* **Working Tree State:** After implementing a microservice or step, leave all newly created files uncommitted in the local working directory.
+* **User Prompted Only:** When a microservice is fully verified, the user will explicitly ask for modular commits.
+* **Execution:** Only provide the modular commit commands/messages when the user prompts for it, and allow the user to push it to remote themselves. Do not run git push autonomously.
 
 ---
 
@@ -107,7 +120,7 @@ Before writing any exception classes or handler advice:
 | **Java Version** | Java 17 / 21+ compatible | Standard modern Spring Boot 3.x |
 | **Build Tool** | Maven (`pom.xml` + `mvnw.cmd`) | Self-bootstrapping Maven wrapper |
 | **Persistence** | Spring Data JPA + Hibernate | `ddl-auto=update` |
-| **Database** | H2 for instant local dev / PostgreSQL for production | Easily switchable via `application.properties` |
+| **Database** | **Local MySQL Database ONLY** (`com.mysql:mysql-connector-j`) | Accessible via MySQL Workbench. **NO H2, NO PostgreSQL** in actual project. |
 | **Documentation** | Springdoc OpenAPI 3 (Swagger UI) | Accessible at `/swagger-ui.html` |
 | **Boilerplate Reduction** | Project Lombok | Required for actual JSS project |
 
@@ -117,6 +130,8 @@ Before writing any exception classes or handler advice:
 
 | Date | Directive / Decision | Requested By | Action Taken |
 | :--- | :--- | :--- | :--- |
+| **2026-11-18** | **Strict Git Commit & Push Rule**: Never automatically commit or push code. Leave all files uncommitted in the working tree. Only provide modular commit breakdowns when the user explicitly prompts for it. Added to Section 1.F. | User | Reset local commit; logged as strict protocol across all future steps. |
+| **2026-11-18** | **Local MySQL Database Requirement**: Use local MySQL database exclusively across all microservices (no H2, no PostgreSQL). Must be inspectable via MySQL Workbench. Added to Section 1.C. | User | MySQL driver & configuration mandated across all services. |
 | **2026-11-18** | **Step 1 Completed (`eureka-server`)**: Implemented Eureka Discovery Server on port 8761 with `@EnableEurekaServer` and `application.yml`. Registered child module in parent `pom.xml`. Verified via 2-Gate Protocol. | User | Discovery server module ready. |
 | **2026-11-18** | **Step-Specific Doubt Solving Rule**: Do NOT update `jss-practice/SPRING_CONCEPTS_AND_DOUBTS.md`. Add all doubts and explanations directly to the bottom of that step's guide (e.g. `STEP_1_EUREKA_SERVER_GUIDE.md`) under `## Doubt Solving & Conceptual Deep-Dives`. | User | Codified in Section 2 and enforced across all steps. |
 | **2026-11-18** | **Two-Gate Pre-Implementation Protocol Enacted**: Gate 1: Comprehensive Step Guide MD with architecture, folder breakdown, code snippets & annotations. Gate 2: Explicit theoretical understanding check & implementation permission from user before writing any code. | User | Codified in Section 2. Mandatory for all steps starting with Step 1. |

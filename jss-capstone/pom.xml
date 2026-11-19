@@ -28,6 +28,7 @@
     <!-- Sub-modules will be added here progressively as each service is created -->
     <modules>
         <module>eureka-server</module>
+        <module>employer-service</module>
     </modules>
 
     <dependencyManagement>
