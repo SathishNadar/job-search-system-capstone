@@ -1,0 +1,32 @@
+# Compiled Class files
+**/target/
+target/
+*.class
+
+# Package Files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Log files
+*.log
+hs_err_pid*
+
+# Maven Wrapper downloaded binaries
+.mvn/wrapper/apache-maven-*
+**/.mvn/wrapper/apache-maven-*
+
+# IDE & Editor files
+.idea/
+*.iml
+.vscode/
+*.ipr
+*.iws
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+desktop.ini
