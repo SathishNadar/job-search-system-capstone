@@ -3,6 +3,15 @@
 # Maven Wrapper for Linux/macOS/Git Bash
 # ----------------------------------------------------------------------------
 set -e
+
+STS_JAVA17="/c/Assessment_Workbench/spring-tool-suite/sts-4.16.0.RELEASE/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.4.v20220903-1038/jre"
+if [ -d "$STS_JAVA17" ]; then
+    if [ -z "$JAVA_HOME" ] || echo "$JAVA_HOME" | grep -qi "jdk-25"; then
+        export JAVA_HOME="$STS_JAVA17"
+        export PATH="$JAVA_HOME/bin:$PATH"
+    fi
+fi
+
 DIR="$(cd "$(dirname "$0")" && pwd)"
 MAVEN_VERSION="3.9.9"
 MAVEN_HOME="$DIR/.mvn/wrapper/apache-maven-$MAVEN_VERSION"

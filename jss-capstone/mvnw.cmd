@@ -4,6 +4,22 @@
 @echo off
 setlocal
 
+set "STS_JAVA17=C:\Assessment_Workbench\spring-tool-suite\sts-4.16.0.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.4.v20220903-1038\jre"
+if not defined JAVA_HOME (
+    if exist "%STS_JAVA17%\bin\java.exe" (
+        set "JAVA_HOME=%STS_JAVA17%"
+        set "PATH=%STS_JAVA17%\bin;%PATH%"
+    )
+) else (
+    echo %JAVA_HOME% | findstr /i "jdk-25" >nul
+    if not errorlevel 1 (
+        if exist "%STS_JAVA17%\bin\java.exe" (
+            set "JAVA_HOME=%STS_JAVA17%"
+            set "PATH=%STS_JAVA17%\bin;%PATH%"
+        )
+    )
+)
+
 set "DIR=%~dp0"
 set "MAVEN_VERSION=3.9.9"
 set "MAVEN_HOME=%DIR%.mvn\wrapper\apache-maven-%MAVEN_VERSION%"
