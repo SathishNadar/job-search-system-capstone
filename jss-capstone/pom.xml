@@ -31,6 +31,7 @@
         <module>employer-service</module>
         <module>jobseeker-service</module>
         <module>job-service</module>
+        <module>application-service</module>
     </modules>
 
     <dependencyManagement>
